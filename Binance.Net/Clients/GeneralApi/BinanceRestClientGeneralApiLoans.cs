@@ -20,12 +20,10 @@ namespace Binance.Net.Clients.GeneralApi
 
         #region Get Income History
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BinanceCryptoLoanIncome>>> GetIncomeHistoryAsync(string asset, LoanIncomeType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, long? receiveWindow = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BinanceCryptoLoanIncome>>> GetIncomeHistoryAsync(string? asset = null, LoanIncomeType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, long? receiveWindow = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection
-            {
-                { "asset", asset }
-            };
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("asset", asset?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalEnum("type", type);
             parameters.AddOptionalParameter("limit", limit?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
