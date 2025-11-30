@@ -883,9 +883,6 @@
         <member name="M:Binance.Net.Clients.GeneralApi.BinanceRestClientGeneralApiLoans.GetBorrowHistoryAsync(System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Binance.Net.Clients.GeneralApi.BinanceRestClientGeneralApiLoans.GetOpenBorrowOrdersAsync(System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Binance.Net.Clients.GeneralApi.BinanceRestClientGeneralApiLoans.RepayAsync(System.Int64,System.Decimal,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3516,6 +3513,26 @@
             Expired
             </summary>
         </member>
+        <member name="T:Binance.Net.Enums.FlexibleBorrowRecordStatus">
+            <summary>
+            Flexible Borrow Status
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.FlexibleBorrowRecordStatus.Success">
+            <summary>
+            Successful execution
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.FlexibleBorrowRecordStatus.Failed">
+            <summary>
+            Execution failed
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.FlexibleBorrowRecordStatus.Pending">
+            <summary>
+            Pending to execute
+            </summary>
+        </member>
         <member name="T:Binance.Net.Enums.FuturesAccountType">
             <summary>
             Futures account type
@@ -3959,6 +3976,21 @@
         <member name="F:Binance.Net.Enums.LoanIncomeType.CollateralReturnAfterLiquidation">
             <summary>
             Collateral return after liquidation
+            </summary>
+        </member>
+        <member name="T:Binance.Net.Enums.LoanLiquidationStatus">
+            <summary>
+            Loan liquidation status
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.LoanLiquidationStatus.Liquidated">
+            <summary>
+            Liquidated
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.LoanLiquidationStatus.Liquidating">
+            <summary>
+            Liquidating
             </summary>
         </member>
         <member name="T:Binance.Net.Enums.MarginLevelStatus">
@@ -4629,6 +4661,26 @@
         <member name="F:Binance.Net.Enums.RedemptionType.EarlyRedemption">
             <summary>
             Early redemption
+            </summary>
+        </member>
+        <member name="T:Binance.Net.Enums.RepayStatus">
+            <summary>
+            Repay status
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.RepayStatus.Repaid">
+            <summary>
+            Repaid
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.RepayStatus.Repaying">
+            <summary>
+            Repaying
+            </summary>
+        </member>
+        <member name="F:Binance.Net.Enums.RepayStatus.Failed">
+            <summary>
+            Failed
             </summary>
         </member>
         <member name="T:Binance.Net.Enums.RewardType">
@@ -7497,20 +7549,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.GetOpenBorrowOrdersAsync(System.Nullable{System.Int64},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            Get ongoing loan orders
-            <para><a href="https://binance-docs.github.io/apidocs/spot/en/#borrow-get-loan-ongoing-orders-user_data" /></para>
-            </summary>
-            <param name="orderId">Filter by order id</param>
-            <param name="loanAsset">Filter by loan asset</param>
-            <param name="collateralAsset">Filter by collateral asset</param>
-            <param name="page">Page number</param>
-            <param name="limit">Page size</param>
-            <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.RepayAsync(System.Int64,System.Decimal,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Repay a loan
@@ -7609,6 +7647,64 @@
             <param name="marginCall">Margin call value</param>
             <param name="orderId">Order id. Required if collateralAsset is not send</param>
             <param name="collateralAsset">Collateral asset. Required if order id is not send</param>
+            <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.GetFlexibleBorrowHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get flexible borrow order history
+            <para><a href="https://developers.binance.com/docs/crypto_loan/flexible-rate/user-information/Get-Flexible-Loan-Borrow-History" /></para>
+            </summary>
+            <param name="loanAsset">Filter by loan asset</param>
+            <param name="collateralAsset">Filter by collateral asset</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="page">Page number</param>
+            <param name="limit">Page size</param>
+            <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.GetOpenBorrowOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get ongoing flexible loan orders
+            <para><a href="https://developers.binance.com/docs/crypto_loan/flexible-rate/user-information/Get-Flexible-Loan-Ongoing-Orders" /></para>
+            </summary>
+            <param name="loanAsset">Filter by loan asset</param>
+            <param name="collateralAsset">Filter by collateral asset</param>
+            <param name="page">Page number</param>
+            <param name="limit">Page size</param>
+            <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.GetLiquidationHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get flexible loan liquidation history
+            <para><a href="https://developers.binance.com/docs/crypto_loan/flexible-rate/user-information/Get-Flexible-Loan-Liquidation-History" /></para>
+            </summary>
+            <param name="loanAsset">Filter by loan asset</param>
+            <param name="collateralAsset">Filter by collateral asset</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="page">Page number</param>
+            <param name="limit">Page size</param>
+            <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Binance.Net.Interfaces.Clients.GeneralApi.IBinanceRestClientGeneralApiLoans.GetFlexibleRepayHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get flexible loan repayment history
+            <para><a href="https://developers.binance.com/docs/crypto_loan/flexible-rate/user-information/Get-Flexible-Loan-Repayment-History" /></para>
+            </summary>
+            <param name="loanAsset">Filter by loan asset</param>
+            <param name="collateralAsset">Filter by collateral asset</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="page">Page number</param>
+            <param name="limit">Page size</param>
             <param name="receiveWindow">The receive window for which this request is active. When the request takes longer than this to complete the server will reject the request</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -21277,6 +21373,76 @@
             Vip level
             </summary>
         </member>
+        <member name="T:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord">
+            <summary>
+            Borrow record
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.LoanAsset">
+            <summary>
+            The loaning asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.CollateralAsset">
+            <summary>
+            The collateral asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.InitialLoanQuantity">
+            <summary>
+            The loan quantity
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.InitialCollateralQuantity">
+            <summary>
+            The collateral quantity
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.BorrowTime">
+            <summary>
+            Borrow timestamp
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleBorrowRecord.Status">
+            <summary>
+            Status of the order
+            </summary>
+        </member>
+        <member name="T:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord">
+            <summary>
+            Flexible repay record
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.LoanAsset">
+            <summary>
+            The loaning asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.RepayQuantity">
+            <summary>
+            Repay quantity
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.CollateralAsset">
+            <summary>
+            The collateral asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.CollateralReturn">
+            <summary>
+            Collateral return
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.RepayStatus">
+            <summary>
+            Status of the repay
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanFlexibleRepayRecord.RepayTime">
+            <summary>
+            Repay timestamp
+            </summary>
+        </member>
         <member name="T:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanIncome">
             <summary>
             Crypto loan income info
@@ -21305,6 +21471,56 @@
         <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanIncome.TransactionId">
             <summary>
             Transaction id
+            </summary>
+        </member>
+        <member name="T:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord">
+            <summary>
+            Borrow record
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.LoanAsset">
+            <summary>
+            The loaning asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.Debt">
+            <summary>
+            The liquidation dept
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.CollateralAsset">
+            <summary>
+            The collateral asset
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.CollateralQuantity">
+            <summary>
+            The liquidation collateral quantity
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.returnCollateralQuantity">
+            <summary>
+            The return collateral quantity
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.Fee">
+            <summary>
+            The liquidation fee
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.StartingPrice">
+            <summary>
+            The liquidation starting price
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.StartingTime">
+            <summary>
+            The liquidation starting time
+            </summary>
+        </member>
+        <member name="P:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLiquidationRecord.Status">
+            <summary>
+            Status of the order
             </summary>
         </member>
         <member name="T:Binance.Net.Objects.Models.Spot.Loans.BinanceCryptoLoanLtvAdjust">
