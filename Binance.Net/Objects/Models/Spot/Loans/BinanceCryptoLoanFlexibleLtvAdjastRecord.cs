@@ -3,6 +3,7 @@ namespace Binance.Net.Objects.Models.Spot.Loans
     /// <summary>
     /// Ltv adjustment info
     /// </summary>
+    [SerializationModel]
     public record BinanceCryptoLoanFlexibleLtvAdjustRecord
     {
         /// <summary>

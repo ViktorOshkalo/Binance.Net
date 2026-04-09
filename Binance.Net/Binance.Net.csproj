@@ -7,7 +7,7 @@
   <PropertyGroup>
     <PackageId>Binance.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>12.11.2</PackageVersion>
+    <PackageVersion>12.11.2-pre3</PackageVersion>
     <AssemblyVersion>12.11.2</AssemblyVersion>
     <FileVersion>12.11.2</FileVersion>
     <Description>A high-performance .NET client library for the Binance REST and WebSocket APIs, providing strongly typed models, automatic WebSocket reconnection, client-side rate limiting, local order book support, and seamless integration with other CryptoExchange.Net based clients.</Description>

@@ -5,6 +5,7 @@ namespace Binance.Net.Objects.Models.Spot.Loans
     /// <summary>
     /// Flexible repay record
     /// </summary>
+    [SerializationModel]
     public record BinanceCryptoLoanFlexibleRepayRecord
     {
         /// <summary>

@@ -5,6 +5,7 @@ namespace Binance.Net.Objects.Models.Spot.Loans
     /// <summary>
     /// Borrow record
     /// </summary>
+    [SerializationModel]
     public record BinanceCryptoLoanFlexibleBorrowRecord
     {
         /// <summary>
